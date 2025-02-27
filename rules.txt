@@ -1,0 +1,4 @@
+/Users/mungyo7/Desktop/dapp_practice/test1/packages/nextjs/app
+/Users/mungyo7/Desktop/dapp_practice/test1/packages/nextjs/components
+
+이 폴더의 모든 파일을 이용해서 추론해줘

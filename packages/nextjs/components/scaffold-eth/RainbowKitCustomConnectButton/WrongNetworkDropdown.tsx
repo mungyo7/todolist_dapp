@@ -1,14 +1,16 @@
 import { NetworkOptions } from "./NetworkOptions";
 import { useDisconnect } from "wagmi";
 import { ArrowLeftOnRectangleIcon, ChevronDownIcon } from "@heroicons/react/24/outline";
+import { useTargetNetwork } from "~~/hooks/scaffold-eth/useTargetNetwork";
 
 export const WrongNetworkDropdown = () => {
   const { disconnect } = useDisconnect();
+  const { targetNetwork } = useTargetNetwork();
 
   return (
     <div className="dropdown dropdown-end mr-2">
       <label tabIndex={0} className="btn btn-error btn-sm dropdown-toggle gap-1">
-        <span>Wrong network</span>
+        <span>다른 네트워크로 연결</span>
         <ChevronDownIcon className="h-6 w-4 ml-2 sm:ml-0" />
       </label>
       <ul
@@ -23,7 +25,7 @@ export const WrongNetworkDropdown = () => {
             onClick={() => disconnect()}
           >
             <ArrowLeftOnRectangleIcon className="h-6 w-4 ml-2 sm:ml-0" />
-            <span>Disconnect</span>
+            <span>연결 해제</span>
           </button>
         </li>
       </ul>

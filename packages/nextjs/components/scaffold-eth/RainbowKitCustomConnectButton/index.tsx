@@ -10,13 +10,14 @@ import { Address } from "viem";
 import { useNetworkColor } from "~~/hooks/scaffold-eth";
 import { useTargetNetwork } from "~~/hooks/scaffold-eth/useTargetNetwork";
 import { getBlockExplorerAddressLink } from "~~/utils/scaffold-eth";
+import { TokenBalance } from "../TokenBalance";
 
 /**
  * Custom Wagmi Connect Button (watch balance + custom design)
  */
 export const RainbowKitCustomConnectButton = () => {
-  const networkColor = useNetworkColor();
   const { targetNetwork } = useTargetNetwork();
+  const networkColor = useNetworkColor();
 
   return (
     <ConnectButton.Custom>
@@ -32,7 +33,7 @@ export const RainbowKitCustomConnectButton = () => {
               if (!connected) {
                 return (
                   <button className="btn btn-primary btn-sm" onClick={openConnectModal} type="button">
-                    Connect Wallet
+                    지갑 연결
                   </button>
                 );
               }
@@ -43,11 +44,31 @@ export const RainbowKitCustomConnectButton = () => {
 
               return (
                 <>
-                  <div className="flex flex-col items-center mr-1">
-                    <Balance address={account.address as Address} className="min-h-0 h-auto" />
-                    <span className="text-xs" style={{ color: networkColor }}>
-                      {chain.name}
-                    </span>
+                  <div className="flex items-center gap-2 mr-1">
+                    <div className="bg-base-200 px-3 py-1.5 rounded-lg shadow-md min-w-[120px] text-center flex justify-center items-center">
+                      <TokenBalance 
+                        address={account.address as Address} 
+                        className="text-base font-semibold text-white" 
+                      />
+                    </div>
+                    <div className="bg-base-200 px-3 py-0.5 rounded-lg shadow-md min-w-[120px] text-center flex justify-center items-center">
+                      <Balance 
+                        address={account.address as Address} 
+                        className="text-base font-semibold text-white" 
+                      />
+                    </div>
+                    <div 
+                      className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg"
+                      style={{ 
+                        background: `linear-gradient(90deg, ${networkColor}22, ${networkColor}44)`,
+                        border: `1px solid ${networkColor}66`
+                      }}
+                    >
+                      <span className="w-2 h-2 rounded-full animate-pulse" style={{ backgroundColor: networkColor }}></span>
+                      <span className="text-sm font-medium" style={{ color: networkColor }}>
+                        {chain.name}
+                      </span>
+                    </div>
                   </div>
                   <AddressInfoDropdown
                     address={account.address as Address}
@@ -55,7 +76,10 @@ export const RainbowKitCustomConnectButton = () => {
                     ensAvatar={account.ensAvatar}
                     blockExplorerAddressLink={blockExplorerAddressLink}
                   />
-                  <AddressQRCodeModal address={account.address as Address} modalId="qrcode-modal" />
+                  <AddressQRCodeModal 
+                    address={account.address as Address} 
+                    modalId="qrcode-modal" 
+                  />
                 </>
               );
             })()}

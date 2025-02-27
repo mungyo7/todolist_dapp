@@ -4,6 +4,1616 @@
  */
 import { GenericContractsDeclaration } from "~~/utils/scaffold-eth/contract";
 
-const deployedContracts = {} as const;
+const deployedContracts = {
+  31337: {
+    YourContract: {
+      address: "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+      abi: [
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "_owner",
+              type: "address",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "constructor",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "address",
+              name: "greetingSetter",
+              type: "address",
+            },
+            {
+              indexed: false,
+              internalType: "string",
+              name: "newGreeting",
+              type: "string",
+            },
+            {
+              indexed: false,
+              internalType: "bool",
+              name: "premium",
+              type: "bool",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "value",
+              type: "uint256",
+            },
+          ],
+          name: "GreetingChange",
+          type: "event",
+        },
+        {
+          inputs: [],
+          name: "greeting",
+          outputs: [
+            {
+              internalType: "string",
+              name: "",
+              type: "string",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "owner",
+          outputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "premium",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "",
+              type: "bool",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "string",
+              name: "_newGreeting",
+              type: "string",
+            },
+          ],
+          name: "setGreeting",
+          outputs: [],
+          stateMutability: "payable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "totalCounter",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          name: "userGreetingCounter",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "withdraw",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          stateMutability: "payable",
+          type: "receive",
+        },
+      ],
+      inheritedFunctions: {},
+    },
+  },
+  42161: {
+    TaskContract: {
+      address: "0xB8F380F070fC29D113d03045f00D2878976f3ab7",
+      abi: [
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "_tokenAddress",
+              type: "address",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "constructor",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "id",
+              type: "uint256",
+            },
+            {
+              indexed: false,
+              internalType: "address",
+              name: "user",
+              type: "address",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "amount",
+              type: "uint256",
+            },
+          ],
+          name: "RewardPaid",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "id",
+              type: "uint256",
+            },
+            {
+              indexed: false,
+              internalType: "string",
+              name: "name",
+              type: "string",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "dueDate",
+              type: "uint256",
+            },
+            {
+              indexed: false,
+              internalType: "string",
+              name: "status",
+              type: "string",
+            },
+            {
+              indexed: false,
+              internalType: "address",
+              name: "owner",
+              type: "address",
+            },
+          ],
+          name: "TaskCreated",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "id",
+              type: "uint256",
+            },
+            {
+              indexed: false,
+              internalType: "address",
+              name: "owner",
+              type: "address",
+            },
+          ],
+          name: "TaskDeleted",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "id",
+              type: "uint256",
+            },
+            {
+              indexed: false,
+              internalType: "string",
+              name: "newStatus",
+              type: "string",
+            },
+          ],
+          name: "TaskStatusChanged",
+          type: "event",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "_id",
+              type: "uint256",
+            },
+            {
+              internalType: "string",
+              name: "_status",
+              type: "string",
+            },
+          ],
+          name: "changeTaskStatus",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "string",
+              name: "_name",
+              type: "string",
+            },
+            {
+              internalType: "uint256",
+              name: "_dueDate",
+              type: "uint256",
+            },
+          ],
+          name: "createTask",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "_id",
+              type: "uint256",
+            },
+          ],
+          name: "deleteTask",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "getAllTasks",
+          outputs: [
+            {
+              components: [
+                {
+                  internalType: "uint256",
+                  name: "id",
+                  type: "uint256",
+                },
+                {
+                  internalType: "string",
+                  name: "name",
+                  type: "string",
+                },
+                {
+                  internalType: "uint256",
+                  name: "dueDate",
+                  type: "uint256",
+                },
+                {
+                  internalType: "string",
+                  name: "status",
+                  type: "string",
+                },
+                {
+                  internalType: "address",
+                  name: "owner",
+                  type: "address",
+                },
+                {
+                  internalType: "bool",
+                  name: "isDeleted",
+                  type: "bool",
+                },
+                {
+                  internalType: "bool",
+                  name: "isRewarded",
+                  type: "bool",
+                },
+              ],
+              internalType: "struct TaskContract.Task[]",
+              name: "",
+              type: "tuple[]",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "account",
+              type: "address",
+            },
+          ],
+          name: "getTokenBalance",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "_user",
+              type: "address",
+            },
+          ],
+          name: "getUserTasks",
+          outputs: [
+            {
+              components: [
+                {
+                  internalType: "uint256",
+                  name: "id",
+                  type: "uint256",
+                },
+                {
+                  internalType: "string",
+                  name: "name",
+                  type: "string",
+                },
+                {
+                  internalType: "uint256",
+                  name: "dueDate",
+                  type: "uint256",
+                },
+                {
+                  internalType: "string",
+                  name: "status",
+                  type: "string",
+                },
+                {
+                  internalType: "address",
+                  name: "owner",
+                  type: "address",
+                },
+                {
+                  internalType: "bool",
+                  name: "isDeleted",
+                  type: "bool",
+                },
+                {
+                  internalType: "bool",
+                  name: "isRewarded",
+                  type: "bool",
+                },
+              ],
+              internalType: "struct TaskContract.Task[]",
+              name: "",
+              type: "tuple[]",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "taskCount",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "taskToken",
+          outputs: [
+            {
+              internalType: "contract TaskToken",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          name: "tasks",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "id",
+              type: "uint256",
+            },
+            {
+              internalType: "string",
+              name: "name",
+              type: "string",
+            },
+            {
+              internalType: "uint256",
+              name: "dueDate",
+              type: "uint256",
+            },
+            {
+              internalType: "string",
+              name: "status",
+              type: "string",
+            },
+            {
+              internalType: "address",
+              name: "owner",
+              type: "address",
+            },
+            {
+              internalType: "bool",
+              name: "isDeleted",
+              type: "bool",
+            },
+            {
+              internalType: "bool",
+              name: "isRewarded",
+              type: "bool",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          name: "userTasks",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+      ],
+      inheritedFunctions: {},
+    },
+    TaskToken: {
+      address: "0x20a2ea627520B80eFD371AE3137E0C6A80a459ab",
+      abi: [
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "initialOwner",
+              type: "address",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "constructor",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "spender",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "allowance",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "needed",
+              type: "uint256",
+            },
+          ],
+          name: "ERC20InsufficientAllowance",
+          type: "error",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "sender",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "balance",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "needed",
+              type: "uint256",
+            },
+          ],
+          name: "ERC20InsufficientBalance",
+          type: "error",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "approver",
+              type: "address",
+            },
+          ],
+          name: "ERC20InvalidApprover",
+          type: "error",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "receiver",
+              type: "address",
+            },
+          ],
+          name: "ERC20InvalidReceiver",
+          type: "error",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "sender",
+              type: "address",
+            },
+          ],
+          name: "ERC20InvalidSender",
+          type: "error",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "spender",
+              type: "address",
+            },
+          ],
+          name: "ERC20InvalidSpender",
+          type: "error",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "owner",
+              type: "address",
+            },
+          ],
+          name: "OwnableInvalidOwner",
+          type: "error",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "account",
+              type: "address",
+            },
+          ],
+          name: "OwnableUnauthorizedAccount",
+          type: "error",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "address",
+              name: "owner",
+              type: "address",
+            },
+            {
+              indexed: true,
+              internalType: "address",
+              name: "spender",
+              type: "address",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "value",
+              type: "uint256",
+            },
+          ],
+          name: "Approval",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "address",
+              name: "previousOwner",
+              type: "address",
+            },
+            {
+              indexed: true,
+              internalType: "address",
+              name: "newOwner",
+              type: "address",
+            },
+          ],
+          name: "OwnershipTransferred",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "address",
+              name: "from",
+              type: "address",
+            },
+            {
+              indexed: true,
+              internalType: "address",
+              name: "to",
+              type: "address",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "value",
+              type: "uint256",
+            },
+          ],
+          name: "Transfer",
+          type: "event",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "owner",
+              type: "address",
+            },
+            {
+              internalType: "address",
+              name: "spender",
+              type: "address",
+            },
+          ],
+          name: "allowance",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "spender",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "value",
+              type: "uint256",
+            },
+          ],
+          name: "approve",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "",
+              type: "bool",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "account",
+              type: "address",
+            },
+          ],
+          name: "balanceOf",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "decimals",
+          outputs: [
+            {
+              internalType: "uint8",
+              name: "",
+              type: "uint8",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "name",
+          outputs: [
+            {
+              internalType: "string",
+              name: "",
+              type: "string",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "owner",
+          outputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "renounceOwnership",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "rewardAmount",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "_to",
+              type: "address",
+            },
+          ],
+          name: "rewardUser",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "_amount",
+              type: "uint256",
+            },
+          ],
+          name: "setRewardAmount",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "_taskContract",
+              type: "address",
+            },
+          ],
+          name: "setTaskContract",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "symbol",
+          outputs: [
+            {
+              internalType: "string",
+              name: "",
+              type: "string",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "taskContract",
+          outputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "totalSupply",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "to",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "value",
+              type: "uint256",
+            },
+          ],
+          name: "transfer",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "",
+              type: "bool",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "from",
+              type: "address",
+            },
+            {
+              internalType: "address",
+              name: "to",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "value",
+              type: "uint256",
+            },
+          ],
+          name: "transferFrom",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "",
+              type: "bool",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "newOwner",
+              type: "address",
+            },
+          ],
+          name: "transferOwnership",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+      ],
+      inheritedFunctions: {
+        allowance: "@openzeppelin/contracts/token/ERC20/ERC20.sol",
+        approve: "@openzeppelin/contracts/token/ERC20/ERC20.sol",
+        balanceOf: "@openzeppelin/contracts/token/ERC20/ERC20.sol",
+        decimals: "@openzeppelin/contracts/token/ERC20/ERC20.sol",
+        name: "@openzeppelin/contracts/token/ERC20/ERC20.sol",
+        symbol: "@openzeppelin/contracts/token/ERC20/ERC20.sol",
+        totalSupply: "@openzeppelin/contracts/token/ERC20/ERC20.sol",
+        transfer: "@openzeppelin/contracts/token/ERC20/ERC20.sol",
+        transferFrom: "@openzeppelin/contracts/token/ERC20/ERC20.sol",
+        owner: "@openzeppelin/contracts/access/Ownable.sol",
+        renounceOwnership: "@openzeppelin/contracts/access/Ownable.sol",
+        transferOwnership: "@openzeppelin/contracts/access/Ownable.sol",
+      },
+    },
+    YourContract: {
+      address: "0x053A1fB2629DC8316F3023e3C5B6c1379e17F8dD",
+      abi: [
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "_owner",
+              type: "address",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "constructor",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "address",
+              name: "greetingSetter",
+              type: "address",
+            },
+            {
+              indexed: false,
+              internalType: "string",
+              name: "newGreeting",
+              type: "string",
+            },
+            {
+              indexed: false,
+              internalType: "bool",
+              name: "premium",
+              type: "bool",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "value",
+              type: "uint256",
+            },
+          ],
+          name: "GreetingChange",
+          type: "event",
+        },
+        {
+          inputs: [],
+          name: "greeting",
+          outputs: [
+            {
+              internalType: "string",
+              name: "",
+              type: "string",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "owner",
+          outputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "premium",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "",
+              type: "bool",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "string",
+              name: "_newGreeting",
+              type: "string",
+            },
+          ],
+          name: "setGreeting",
+          outputs: [],
+          stateMutability: "payable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "totalCounter",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          name: "userGreetingCounter",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "withdraw",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          stateMutability: "payable",
+          type: "receive",
+        },
+      ],
+      inheritedFunctions: {},
+    },
+  },
+  11155111: {
+    TaskContract: {
+      address: "0xc525450b634176cCEdF89Ca224F97a16d097aaFa",
+      abi: [
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "id",
+              type: "uint256",
+            },
+            {
+              indexed: false,
+              internalType: "string",
+              name: "name",
+              type: "string",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "dueDate",
+              type: "uint256",
+            },
+            {
+              indexed: false,
+              internalType: "string",
+              name: "status",
+              type: "string",
+            },
+            {
+              indexed: false,
+              internalType: "address",
+              name: "owner",
+              type: "address",
+            },
+          ],
+          name: "TaskCreated",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "id",
+              type: "uint256",
+            },
+            {
+              indexed: false,
+              internalType: "address",
+              name: "owner",
+              type: "address",
+            },
+          ],
+          name: "TaskDeleted",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "id",
+              type: "uint256",
+            },
+            {
+              indexed: false,
+              internalType: "string",
+              name: "newStatus",
+              type: "string",
+            },
+          ],
+          name: "TaskStatusChanged",
+          type: "event",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "_id",
+              type: "uint256",
+            },
+            {
+              internalType: "string",
+              name: "_status",
+              type: "string",
+            },
+          ],
+          name: "changeTaskStatus",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "string",
+              name: "_name",
+              type: "string",
+            },
+            {
+              internalType: "uint256",
+              name: "_dueDate",
+              type: "uint256",
+            },
+          ],
+          name: "createTask",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "_id",
+              type: "uint256",
+            },
+          ],
+          name: "deleteTask",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "getAllTasks",
+          outputs: [
+            {
+              components: [
+                {
+                  internalType: "uint256",
+                  name: "id",
+                  type: "uint256",
+                },
+                {
+                  internalType: "string",
+                  name: "name",
+                  type: "string",
+                },
+                {
+                  internalType: "uint256",
+                  name: "dueDate",
+                  type: "uint256",
+                },
+                {
+                  internalType: "string",
+                  name: "status",
+                  type: "string",
+                },
+                {
+                  internalType: "address",
+                  name: "owner",
+                  type: "address",
+                },
+                {
+                  internalType: "bool",
+                  name: "isDeleted",
+                  type: "bool",
+                },
+              ],
+              internalType: "struct TaskContract.Task[]",
+              name: "",
+              type: "tuple[]",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "_user",
+              type: "address",
+            },
+          ],
+          name: "getUserTasks",
+          outputs: [
+            {
+              components: [
+                {
+                  internalType: "uint256",
+                  name: "id",
+                  type: "uint256",
+                },
+                {
+                  internalType: "string",
+                  name: "name",
+                  type: "string",
+                },
+                {
+                  internalType: "uint256",
+                  name: "dueDate",
+                  type: "uint256",
+                },
+                {
+                  internalType: "string",
+                  name: "status",
+                  type: "string",
+                },
+                {
+                  internalType: "address",
+                  name: "owner",
+                  type: "address",
+                },
+                {
+                  internalType: "bool",
+                  name: "isDeleted",
+                  type: "bool",
+                },
+              ],
+              internalType: "struct TaskContract.Task[]",
+              name: "",
+              type: "tuple[]",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "taskCount",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          name: "tasks",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "id",
+              type: "uint256",
+            },
+            {
+              internalType: "string",
+              name: "name",
+              type: "string",
+            },
+            {
+              internalType: "uint256",
+              name: "dueDate",
+              type: "uint256",
+            },
+            {
+              internalType: "string",
+              name: "status",
+              type: "string",
+            },
+            {
+              internalType: "address",
+              name: "owner",
+              type: "address",
+            },
+            {
+              internalType: "bool",
+              name: "isDeleted",
+              type: "bool",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          name: "userTasks",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+      ],
+      inheritedFunctions: {},
+    },
+    YourContract: {
+      address: "0x5Ff45E61BF314eAB4E67cD2a921E1d47401113eA",
+      abi: [
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "_owner",
+              type: "address",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "constructor",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "address",
+              name: "greetingSetter",
+              type: "address",
+            },
+            {
+              indexed: false,
+              internalType: "string",
+              name: "newGreeting",
+              type: "string",
+            },
+            {
+              indexed: false,
+              internalType: "bool",
+              name: "premium",
+              type: "bool",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "value",
+              type: "uint256",
+            },
+          ],
+          name: "GreetingChange",
+          type: "event",
+        },
+        {
+          inputs: [],
+          name: "greeting",
+          outputs: [
+            {
+              internalType: "string",
+              name: "",
+              type: "string",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "owner",
+          outputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "premium",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "",
+              type: "bool",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "string",
+              name: "_newGreeting",
+              type: "string",
+            },
+          ],
+          name: "setGreeting",
+          outputs: [],
+          stateMutability: "payable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "totalCounter",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          name: "userGreetingCounter",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "withdraw",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          stateMutability: "payable",
+          type: "receive",
+        },
+      ],
+      inheritedFunctions: {},
+    },
+  },
+} as const;
 
 export default deployedContracts satisfies GenericContractsDeclaration;
