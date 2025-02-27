@@ -6,6 +6,7 @@
   "packageManager": "yarn@3.2.3",
   "dependencies": {
     "ethereum-blockies-base64": "^1.0.2",
+    "recharts": "^2.15.1",
     "viem": "^2.23.5",
     "wagmi": "^2.14.12"
   },

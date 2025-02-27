@@ -15,10 +15,21 @@ const Profile = () => {
   const [joinDate, setJoinDate] = useState<string>("");
   const [blockieUrl, setBlockieUrl] = useState<string>("");
   const [tokenBalance, setTokenBalance] = useState<string>("0");
+  
+  // 태스크 통계 상태 추가
+  const [completedTasks, setCompletedTasks] = useState<number>(0);
+  const [inProgressTasks, setInProgressTasks] = useState<number>(0);
+  const [totalEarnedPoints, setTotalEarnedPoints] = useState<string>("0");
+  const [isLoadingStats, setIsLoadingStats] = useState<boolean>(true);
 
   // TaskToken 인터페이스가 아직 등록되지 않은 경우 임시 우회 방법 사용
   const { data: taskToken } = useScaffoldContract({
     contractName: "TaskToken" as any,
+  });
+  
+  // TaskContract 가져오기
+  const { data: taskContract } = useScaffoldContract({
+    contractName: "TaskContract",
   });
 
   // 토큰 잔액 조회
@@ -36,6 +47,54 @@ const Profile = () => {
       } catch (error) {
         console.error("토큰 잔액 조회 오류:", error);
       }
+    }
+  };
+  
+  // 태스크 통계 데이터 가져오기
+  const fetchTaskStatistics = async () => {
+    if (!taskContract || !address) return;
+    
+    try {
+      setIsLoadingStats(true);
+      
+      // 사용자의 태스크 목록 가져오기
+      const userTasks = await taskContract.read.getUserTasks([address]);
+      
+      // 완료된 태스크와 진행 중인 태스크 분류
+      let completed = 0;
+      let inProgress = 0;
+      
+      // 데이터 구조에 따라 처리
+      if (Array.isArray(userTasks)) {
+        userTasks.forEach(task => {
+          // 태스크 상태에 따라 분류
+          if (task.status === "Completed") {
+            completed++;
+          } else if (task.status === "In Progress") {
+            inProgress++;
+          }
+        });
+      }
+      
+      setCompletedTasks(completed);
+      setInProgressTasks(inProgress);
+      
+      // 총 획득 포인트 계산 (완료된 태스크 * 보상 금액)
+      if (taskToken) {
+        try {
+          // const rewardAmount = await taskToken.read.rewardAmount();
+          // const rewardAmount = BigInt(10);
+          // const totalPoints = rewardAmount * BigInt(completed);
+          setTotalEarnedPoints((10 * completed).toString());
+        } catch (error) {
+          console.error("보상 금액 조회 오류:", error);
+        }
+      }
+      
+    } catch (error) {
+      console.error("태스크 통계 조회 오류:", error);
+    } finally {
+      setIsLoadingStats(false);
     }
   };
 
@@ -61,8 +120,40 @@ const Profile = () => {
       
       // 토큰 잔액 조회
       fetchTokenBalance();
+      
+      // 태스크 통계 조회
+      fetchTaskStatistics();
     }
-  }, [address, taskToken]);
+  }, [address, taskToken, taskContract]);
+
+  const getChainName = (chainId: number | undefined) => {
+    if (!chainId) return "연결 중...";
+    
+    switch (chainId) {
+      case 31337:
+        return "로컬호스트";
+      case 1:
+        return "Ethereum";
+      case 42161:
+        return "Arbitrum";
+      case 421614:
+        return "Arbitrum Sepolia";
+      case 11155111:
+        return "Sepolia";
+      case 137:
+        return "Polygon";
+      case 10:
+        return "Optimism";
+      case 8453:
+        return "Base";
+      case 84532:
+        return "Base Sepolia";
+      case 420:
+        return "Optimism Sepolia";
+      default:
+        return `Chain ${chainId}`;
+    }
+  };
 
   if (!isConnected) {
     return (
@@ -105,7 +196,7 @@ const Profile = () => {
               
               {/* 토큰 잔액 표시 */}
               <div className="mt-4 bg-blue-900 p-3 rounded-lg w-full text-center">
-                <h3 className="text-lg font-semibold mb-1">보유 TaskToken</h3>
+                <h3 className="text-lg font-semibold mb-1">보유 포인트</h3>
                 <p className="text-2xl font-bold">{parseFloat(tokenBalance).toLocaleString('ko-KR', { maximumFractionDigits: 2 })} POINT</p>
               </div>
             </div>
@@ -119,7 +210,7 @@ const Profile = () => {
                 <div className="bg-gray-700 p-4 rounded-lg">
                   <div className="flex justify-between">
                     <span className="text-gray-400">네트워크</span>
-                    <span className="font-medium">{chainId ? (chainId === 31337 ? "로컬호스트" : chainId) : "연결 중..."}</span>
+                    <span className="font-medium">{getChainName(chainId)}</span>
                   </div>
                 </div>
                 
@@ -141,14 +232,66 @@ const Profile = () => {
               </div>
             </div>
             
+            {/* 태스크 통계 섹션 추가 */}
             <div className="bg-gray-800 rounded-lg p-6 shadow-lg mt-6">
               <h2 className="text-xl font-bold mb-4">활동 요약</h2>
-              <div className="bg-gray-700 p-4 rounded-lg">
-                <div className="flex justify-between">
-                  <span className="text-gray-400">완료한 태스크</span>
-                  <span className="font-medium">계산 중...</span>
+              
+              {isLoadingStats ? (
+                <div className="animate-pulse space-y-4">
+                  <div className="h-12 bg-gray-700 rounded"></div>
+                  <div className="h-12 bg-gray-700 rounded"></div>
+                  <div className="h-12 bg-gray-700 rounded"></div>
                 </div>
-              </div>
+              ) : (
+                <div className="space-y-4">
+                  <div className="bg-gray-700 p-4 rounded-lg">
+                    <div className="flex justify-between">
+                      <span className="text-gray-400">완료한 태스크</span>
+                      <span className="font-medium text-green-400">{completedTasks}개</span>
+                    </div>
+                  </div>
+                  
+                  <div className="bg-gray-700 p-4 rounded-lg">
+                    <div className="flex justify-between">
+                      <span className="text-gray-400">진행 중인 태스크</span>
+                      <span className="font-medium text-yellow-400">{inProgressTasks}개</span>
+                    </div>
+                  </div>
+                  
+                  <div className="bg-gray-700 p-4 rounded-lg">
+                    <div className="flex justify-between">
+                      <span className="text-gray-400">획득한 총 포인트</span>
+                      <span className="font-medium text-blue-400">{parseFloat(totalEarnedPoints).toLocaleString('ko-KR', { maximumFractionDigits: 2 })} POINT</span>
+                    </div>
+                  </div>
+                  
+                  {/* 완료율 바 차트 - 간단한 구현 */}
+                  <div className="bg-gray-700 p-4 rounded-lg">
+                    <h3 className="text-lg font-medium mb-3">태스크 완료율</h3>
+                    <div className="w-full bg-gray-600 rounded-full h-4 mb-1">
+                      {completedTasks + inProgressTasks > 0 ? (
+                        <div 
+                          className="bg-blue-500 h-4 rounded-full" 
+                          style={{ 
+                            width: `${(completedTasks / (completedTasks + inProgressTasks)) * 100}%` 
+                          }}
+                        ></div>
+                      ) : (
+                        <div className="h-4"></div>
+                      )}
+                    </div>
+                    <div className="flex justify-between text-sm text-gray-400">
+                      <span>0%</span>
+                      <span>
+                        {completedTasks + inProgressTasks > 0 
+                          ? `${((completedTasks / (completedTasks + inProgressTasks)) * 100).toFixed(1)}%` 
+                          : '0%'}
+                      </span>
+                      <span>100%</span>
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -157,4 +300,4 @@ const Profile = () => {
   );
 };
 
-export default Profile; 
+export default Profile;

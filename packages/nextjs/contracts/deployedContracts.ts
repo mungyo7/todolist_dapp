@@ -152,7 +152,7 @@ const deployedContracts = {
   },
   42161: {
     TaskContract: {
-      address: "0xB8F380F070fC29D113d03045f00D2878976f3ab7",
+      address: "0x4442980AEfdFE2b256EfEAdfAb705fdA2e1a8EE1",
       abi: [
         {
           inputs: [

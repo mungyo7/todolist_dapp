@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { format, parseISO } from "date-fns";
 import { useAccount, useWalletClient } from "wagmi";
 import { useScaffoldContract } from "~~/hooks/scaffold-eth";
+import { notification } from "~~/utils/scaffold-eth";
 
 // 태스크 타입 정의
 interface Task {
@@ -119,12 +120,25 @@ const Home = () => {
       
       const newStatus = task.status === "Completed" ? "In Progress" : "Completed";
       
+      // 상태 변경이 "Completed"로 변경되는 경우에만 알림 표시
+      if (newStatus === "Completed") {
+        notification.info("태스크 완료 처리 중...", { duration: 2000 });
+      }
+      
       await taskContractWrite.write.changeTaskStatus([BigInt(id), newStatus]);
+      
+      // 완료 상태로 변경된 경우 보상 알림 표시
+      if (newStatus === "Completed") {
+        notification.success("태스크를 완료하여 10 POINT를 받았습니다!", {
+          duration: 5000
+        });
+      }
       
       // 태스크 목록 갱신
       setTimeout(fetchTasks, 2000);
     } catch (error) {
       console.error("상태 변경 오류:", error);
+      notification.error("상태 변경 중 오류가 발생했습니다");
     }
   };
   
@@ -187,7 +201,7 @@ const Home = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="md:col-span-2">
             <div className="bg-gray-800 rounded-lg p-6 shadow-lg">
-              <h2 className="text-xl font-bold mb-4">태스크 목록</h2>
+              <h2 className="text-xl font-bold mb-4">Task List</h2>
               
               {filteredTasks.length === 0 ? (
                 <div className="text-center py-6 text-gray-400">태스크가 없습니다</div>
@@ -228,7 +242,7 @@ const Home = () => {
           </div>
           
           <div className="bg-gray-800 rounded-lg p-6 shadow-lg">
-            <h2 className="text-xl font-bold mb-4">태스크 추가</h2>
+            <h2 className="text-xl font-bold mb-4">Add Task</h2>
             <div className="flex flex-col gap-4">
               <div>
                 <input
@@ -240,7 +254,7 @@ const Home = () => {
                 />
               </div>
               <div>
-                <label className="block mb-1">마감일</label>
+                <label className="block mb-1">Due Date</label>
                 <input
                   type="datetime-local"
                   className="w-full p-2 bg-gray-700 rounded-md text-white"
@@ -253,7 +267,7 @@ const Home = () => {
                 onClick={handleAddTask}
                 disabled={!isConnected || !newTaskName}
               >
-                {isConnected ? "태스크 추가" : "지갑 연결 필요"}
+                {isConnected ? "ADD" : "지갑 연결 필요"}
               </button>
             </div>
           </div>
