@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { Address } from "viem";
 import { useAccount } from "wagmi";
 import { useScaffoldContract } from "~~/hooks/scaffold-eth";
+import { formatEther } from "viem";
 
 type TokenBalanceProps = {
   address?: Address;
@@ -20,36 +21,38 @@ export const TokenBalance = ({ address, className = "" }: TokenBalanceProps) => 
 
   // 읽기 전용 컨트랙트 인스턴스
   // TaskToken을 TaskContract 또는 실제 등록된 컨트랙트 이름으로 변경
-  const { data: taskTokenContract } = useScaffoldContract({
-    contractName: "TaskContract", // 또는 scaffold-eth에 등록된 올바른 컨트랙트 이름
+  const { data: taskToken } = useScaffoldContract({
+    contractName: "TaskToken" as any,
   });
 
   useEffect(() => {
     const fetchTokenBalance = async () => {
-      if (!taskTokenContract || !address) return;
+      if (!taskToken || !address) return;
       
       try {
         setIsLoading(true);
-        // 컨트랙트의 실제 메서드 이름을 사용
-        // ERC20 표준 balanceOf가 없는 경우 대체 메서드 사용
-        const tokenBalance = await taskTokenContract.read.getTokenBalance([address]);
-        // 18 소수점 자리를 고려하여 변환 (ERC20 표준)
-        const formattedBalance = Number(tokenBalance) / Math.pow(10, 18);
-        setBalance(formattedBalance.toString());
+        const balance = await taskToken.read.balanceOf([address]);
+        // balance가 bigint인지 확인 후 변환
+        if (typeof balance === 'bigint') {
+          setBalance(formatEther(balance));
+        } else {
+          console.error("잘못된 잔액 형식:", balance);
+          setBalance("0");
+        }
       } catch (error) {
         console.error("토큰 잔액 조회 오류:", error);
       } finally {
         setIsLoading(false);
       }
     };
-
+  
     fetchTokenBalance();
     
     // 30초마다 잔액 갱신
     const intervalId = setInterval(fetchTokenBalance, 30000);
     
     return () => clearInterval(intervalId);
-  }, [taskTokenContract, address, connectedAddress]);
+  }, [taskToken, address, connectedAddress]);
 
   if (isLoading) {
     return (
