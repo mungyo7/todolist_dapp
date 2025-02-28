@@ -5,6 +5,7 @@ import { format, parseISO } from "date-fns";
 import { useAccount, useWalletClient } from "wagmi";
 import { useScaffoldContract } from "~~/hooks/scaffold-eth";
 import { notification } from "~~/utils/scaffold-eth";
+import ChatBot from "~~/components/ChatBot";
 
 // 태스크 타입 정의
 interface Task {
@@ -356,6 +357,7 @@ const Home = () => {
           </div>
         </div>
       </div>
+      <ChatBot />
     </div>
   );
 };

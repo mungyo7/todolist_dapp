@@ -5,6 +5,7 @@
   ],
   "packageManager": "yarn@3.2.3",
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.38.0",
     "ethereum-blockies-base64": "^1.0.2",
     "recharts": "^2.15.1",
     "viem": "^2.23.5",

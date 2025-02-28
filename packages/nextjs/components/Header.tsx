@@ -101,7 +101,7 @@ export const Header = () => {
               src="/todoicon.svg" 
               style={{ objectFit: 'contain' }}
               quality={100}
-            />
+            />  
           </div>
           <div className="flex flex-col">
             <span className="font-bold leading-tight">Todo List</span>
