@@ -22,6 +22,8 @@ const Home = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [newTaskName, setNewTaskName] = useState("");
   const [newTaskDate, setNewTaskDate] = useState("");
+  const [selectedDate, setSelectedDate] = useState("");
+  const [selectedMinute, setSelectedMinute] = useState("00");
 
   // 읽기 전용 컨트랙트 인스턴스
   const { data: taskContract } = useScaffoldContract({
@@ -71,19 +73,76 @@ const Home = () => {
     }
   }, [taskContract, connectedAddress]);
 
-  const filteredTasks = tasks.filter(task => {
-    // Deleted 상태 제외
-    if (task.status === "Deleted") return false;
-    
-    // 탭별 필터링
-    if (activeTab === "In Progress" && task.status !== "In Progress") return false;
-    if (activeTab === "Finished" && task.status !== "Completed") return false;
-    
-    // 검색어 필터링
-    if (searchTerm && !task.name.toLowerCase().includes(searchTerm.toLowerCase())) return false;
-    
-    return true;
-  });
+  // 날짜와 분을 조합하여 newTaskDate 설정
+  useEffect(() => {
+    if (selectedDate) {
+      // 날짜와 시간에서 분 부분을 제외한 부분 추출 (YYYY-MM-DDThh)
+      const dateWithoutMinutes = selectedDate.split(':')[0];
+      // 선택된 분을 조합
+      const fullDateTime = `${dateWithoutMinutes}:${selectedMinute}`;
+      setNewTaskDate(fullDateTime);
+    }
+  }, [selectedDate, selectedMinute]);
+
+  const filteredTasks = tasks
+    .filter(task => {
+      // Deleted 상태 제외
+      if (task.status === "Deleted") return false;
+      
+      // 탭별 필터링
+      if (activeTab === "In Progress" && task.status !== "In Progress") return false;
+      if (activeTab === "Finished" && task.status !== "Completed") return false;
+      
+      // 검색어 필터링
+      if (searchTerm && !task.name.toLowerCase().includes(searchTerm.toLowerCase())) return false;
+      
+      return true;
+    })
+    .sort((a, b) => {
+      // 한국어 날짜 문자열을 파싱하기 위한 함수
+      const parseKoreanDate = (dateStr: string) => {
+        try {
+          if (!dateStr) return new Date(0); // 날짜가 없는 경우 기본값 반환
+          
+          const parts = dateStr.split('오');
+          if (parts.length < 2) return new Date(0);
+          
+          const datePart = parts[0].trim();
+          const timePart = '오' + parts[1];
+          
+          const [year, month, day] = datePart.split('.').map(num => num.trim()).filter(Boolean);
+          const period = timePart.includes('오후') ? '오후' : '오전';
+          const timeStr = timePart.replace(period, '').trim();
+          const [hour, minute] = timeStr.split(':').map(num => parseInt(num.trim()));
+          
+          let adjustedHour = hour;
+          // 오후인 경우 12를 더함 (24시간 형식으로 변환)
+          if (period === '오후' && hour !== 12) {
+            adjustedHour += 12;
+          }
+          // 오전 12시는 0시로 변환
+          if (period === '오전' && hour === 12) {
+            adjustedHour = 0;
+          }
+          
+          return new Date(
+            parseInt(year),
+            parseInt(month) - 1, // 월은 0부터 시작
+            parseInt(day),
+            adjustedHour,
+            minute || 0
+          );
+        } catch (error) {
+          console.error('날짜 파싱 오류:', error, dateStr);
+          return new Date(0); // 파싱 실패시 기본값 반환
+        }
+      };
+      
+      const dateA = parseKoreanDate(a.dueDate);
+      const dateB = parseKoreanDate(b.dueDate);
+      
+      return dateA.getTime() - dateB.getTime();
+    });
   
   const handleAddTask = async () => {
     if (!newTaskName || !isConnected || !taskContractWrite) return;
@@ -255,12 +314,36 @@ const Home = () => {
               </div>
               <div>
                 <label className="block mb-1">Due Date</label>
-                <input
-                  type="datetime-local"
-                  className="w-full p-2 bg-gray-700 rounded-md text-white"
-                  value={newTaskDate}
-                  onChange={(e) => setNewTaskDate(e.target.value)}
-                />
+                <div className="flex gap-2">
+                  <input
+                    type="datetime-local"
+                    className="flex-1 p-2 bg-gray-700 rounded-md text-white"
+                    value={selectedDate}
+                    onChange={(e) => {
+                      // 분을 제외한 날짜와 시간 저장
+                      const value = e.target.value;
+                      // datetime-local의 값이 있으면 처리
+                      if (value) {
+                        // 값에서 분을 00으로 설정
+                        const dateWithZeroMinutes = value.split(':')[0] + ':00';
+                        setSelectedDate(dateWithZeroMinutes);
+                      } else {
+                        setSelectedDate("");
+                      }
+                    }}
+                    step="3600" // 시간 단위로만 선택 가능
+                  />
+                  <select
+                    className="p-2 bg-gray-700 rounded-md text-white"
+                    value={selectedMinute}
+                    onChange={(e) => setSelectedMinute(e.target.value)}
+                  >
+                    <option value="00">00분</option>
+                    <option value="15">15분</option>
+                    <option value="30">30분</option>
+                    <option value="45">45분</option>
+                  </select>
+                </div>
               </div>
               <button
                 className="bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition"
