@@ -477,19 +477,19 @@ __metadata:
   linkType: hard
 
 "@aws-sdk/lib-storage@npm:^3.750.0":
-  version: 3.750.0
-  resolution: "@aws-sdk/lib-storage@npm:3.750.0"
+  version: 3.758.0
+  resolution: "@aws-sdk/lib-storage@npm:3.758.0"
   dependencies:
     "@smithy/abort-controller": ^4.0.1
-    "@smithy/middleware-endpoint": ^4.0.5
-    "@smithy/smithy-client": ^4.1.5
+    "@smithy/middleware-endpoint": ^4.0.6
+    "@smithy/smithy-client": ^4.1.6
     buffer: 5.6.0
     events: 3.3.0
     stream-browserify: 3.0.0
     tslib: ^2.6.2
   peerDependencies:
-    "@aws-sdk/client-s3": ^3.750.0
-  checksum: 1083f2119d2741f080653fb18f5c8e7b887c75949285247fb8aca61d007d97e1acd9df9e59d3c9ce6a6db1dd5717634be84a8735d12d1167299aa768f811af64
+    "@aws-sdk/client-s3": ^3.758.0
+  checksum: aafd53743434fcfd34cba6fa3fdcde398d8acd2543c3678184a410f2c64bf69a1b71eeb4a1b0cef652690e4e8e6e2b19ba4255d1757ccbb372384eb779a40d27
   languageName: node
   linkType: hard
 
@@ -3832,6 +3832,7 @@ __metadata:
     "@typescript-eslint/eslint-plugin": ~5.40.0
     "@uniswap/sdk-core": ~5.8.2
     "@uniswap/v2-sdk": ~4.6.1
+    "@vercel/analytics": ^1.2.0
     abitype: 1.0.6
     autoprefixer: ~10.4.20
     bgipfs: ~0.0.12
@@ -4250,7 +4251,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@smithy/middleware-endpoint@npm:^4.0.0, @smithy/middleware-endpoint@npm:^4.0.5, @smithy/middleware-endpoint@npm:^4.0.6":
+"@smithy/middleware-endpoint@npm:^4.0.0, @smithy/middleware-endpoint@npm:^4.0.6":
   version: 4.0.6
   resolution: "@smithy/middleware-endpoint@npm:4.0.6"
   dependencies:
@@ -4404,7 +4405,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@smithy/smithy-client@npm:^4.0.0, @smithy/smithy-client@npm:^4.1.5, @smithy/smithy-client@npm:^4.1.6":
+"@smithy/smithy-client@npm:^4.0.0, @smithy/smithy-client@npm:^4.1.6":
   version: 4.1.6
   resolution: "@smithy/smithy-client@npm:4.1.6"
   dependencies:
@@ -5797,6 +5798,36 @@ __metadata:
   peerDependencies:
     "@vanilla-extract/css": ^1.0.0
   checksum: 7eb4fe0f1a6048bf5ffb5ffab964c2d127ff95244da79dca2e448af380b591c7af3b4f63ab243584baa8a42c7694d8fe9eeb366587a2da381a481fe1a9e02af8
+  languageName: node
+  linkType: hard
+
+"@vercel/analytics@npm:^1.2.0, @vercel/analytics@npm:^1.5.0":
+  version: 1.5.0
+  resolution: "@vercel/analytics@npm:1.5.0"
+  peerDependencies:
+    "@remix-run/react": ^2
+    "@sveltejs/kit": ^1 || ^2
+    next: ">= 13"
+    react: ^18 || ^19 || ^19.0.0-rc
+    svelte: ">= 4"
+    vue: ^3
+    vue-router: ^4
+  peerDependenciesMeta:
+    "@remix-run/react":
+      optional: true
+    "@sveltejs/kit":
+      optional: true
+    next:
+      optional: true
+    react:
+      optional: true
+    svelte:
+      optional: true
+    vue:
+      optional: true
+    vue-router:
+      optional: true
+  checksum: 60991e558ce459ef0fdd3f3b4ccb657453507083ff879570c43cfe613e5a37f6fdae5146926f3cdeba48db9943a4cfd203be6c5d55de44294cf892526b603877
   languageName: node
   linkType: hard
 
@@ -8826,9 +8857,9 @@ __metadata:
   linkType: hard
 
 "electron-to-chromium@npm:^1.5.73":
-  version: 1.5.107
-  resolution: "electron-to-chromium@npm:1.5.107"
-  checksum: a76ab714041e180dd2a90cbd2fbbe13ae73d0a54e5ba15a9b308f847192aae797d0ff58aedc8c256e302084d7a6d13820aeb96a0db480c16a44eecf50eb26ccf
+  version: 1.5.109
+  resolution: "electron-to-chromium@npm:1.5.109"
+  checksum: 46f71d384f46ead83550027358a45b58370fb243459c347910557ee8d2530637157b54192c702b9adf2bc5c436a8ec2bd3f2da4b3f8e1810aca1becd38c26ba3
   languageName: node
   linkType: hard
 
@@ -15046,9 +15077,9 @@ __metadata:
   linkType: hard
 
 "preact@npm:^10.16.0, preact@npm:^10.24.2":
-  version: 10.26.2
-  resolution: "preact@npm:10.26.2"
-  checksum: 6d477020951d9e08990da7307bc0ca7767291b0f8ec211faf0f755ef800855b0d7f8976b7d903b9c37d0dd192c800b8f2e3bfa29736f078e06e475c65f24753a
+  version: 10.26.3
+  resolution: "preact@npm:10.26.3"
+  checksum: 4306fb0e13af39cc263adaec5fcc68ffea9aba714e81a72b70f5b2a6803fe27caaab0fa39198f23926647d22b79491cf3101016fc5fc34be0da6ffe6fe61fafb
   languageName: node
   linkType: hard
 
@@ -16024,6 +16055,7 @@ __metadata:
   resolution: "root-workspace-0b6124@workspace:."
   dependencies:
     "@anthropic-ai/sdk": ^0.38.0
+    "@vercel/analytics": ^1.5.0
     ethereum-blockies-base64: ^1.0.2
     lint-staged: ^15.4.3
     recharts: ^2.15.1
